@@ -1,41 +1,35 @@
 {
   "name": "setup-maven",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "setup maven action",
+  "description": "GitHub Action to install and set up Apache Maven",
   "main": "lib/setup-maven.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts"
+    "package": "ncc build lib/setup-maven.js -o dist --source-map --license licenses.txt",
+    "all": "npm run build && npm run package",
+    "format": "prettier --write \"**/*.ts\"",
+    "format-check": "prettier --check \"**/*.ts\"",
+    "lint": "eslint src/**/*.ts"
   },
   "keywords": [
     "actions",
     "maven",
-    "setup"
+    "setup",
+    "java",
+    "build-tools"
   ],
-  "author": "stCarolas",
+  "author": "batmahdi",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^1.0.0",
-    "@actions/io": "^1.0.0",
-    "@actions/tool-cache": "1.3.1",
-    "semver": "^6.1.1",
-    "typed-rest-client": "^1.5.0"
+    "@actions/core": "^1.11.1",
+    "@actions/io": "^1.1.3",
+    "@actions/tool-cache": "^2.0.2"
   },
   "devDependencies": {
-    "@types/node": "^20.11.6",
-    "@types/semver": "^6.0.0",
-    "husky": "^2.3.0",
-    "prettier": "^1.17.1",
-    "typescript": "^5.3.3"
-  },
-  "husky": {
-    "skipCI": true,
-    "hooks": {
-      "pre-commit": "npm run build && npm run format",
-      "post-commit": "npm prune --production && git add node_modules/* && git commit -m \"Husky commit correct node modules\""
-    }
+    "@types/node": "^22.15.0",
+    "@vercel/ncc": "^0.38.3",
+    "prettier": "^3.5.3",
+    "typescript": "^5.7.3"
   }
 }

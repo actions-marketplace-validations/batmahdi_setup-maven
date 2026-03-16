@@ -1,10 +1,23 @@
-name: 'Setup Maven'
-description: 'Install a specific version of Apache Maven and add it to the PATH'
-author: 'stCarolas'
+name: 'Setup Apache Maven'
+description: 'Download and set up a specific version of Apache Maven, adding it to PATH'
+author: 'batmahdi'
+
+branding:
+  icon: 'package'
+  color: 'red'
+
 inputs:
   maven-version:
-    description: 'Version Spec of the version to use.  Examples: 10.x, 10.15.1, >=10.15.0'
-    default: '3.8.2'
+    description: 'The exact Maven version to install (e.g. 3.9.9, 4.0.0)'
+    required: false
+    default: '3.9.9'
+
+outputs:
+  maven-version:
+    description: 'The Maven version that was installed'
+  maven-path:
+    description: 'The path where Maven was installed'
+
 runs:
-  using: 'node20'
-  main: 'lib/setup-maven.js'
+  using: 'node24'
+  main: 'dist/index.js'

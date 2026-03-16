@@ -1,14 +1,16 @@
 import * as core from '@actions/core';
-import * as installer from './installer';
+import {getMaven} from './installer';
 
-async function run() {
+async function run(): Promise<void> {
   try {
-    let version = core.getInput('maven-version');
-    if (version) {
-      await installer.getMaven(version);
-    }
+    const version = core.getInput('maven-version', {required: true});
+    await getMaven(version);
   } catch (error) {
-    core.setFailed((error as Error).message);
+    if (error instanceof Error) {
+      core.setFailed(error.message);
+    } else {
+      core.setFailed('An unexpected error occurred');
+    }
   }
 }
 
